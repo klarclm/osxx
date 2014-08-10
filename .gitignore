@@ -18,7 +18,7 @@ local.properties
 
 .myeclipse
 .mymetadata
-WebRoot\WEB-INF\classes
+WebRoot\WEB-INF\classes\
 
 # External tool builders
 .externalToolBuilders/
