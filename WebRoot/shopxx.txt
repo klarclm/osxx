@@ -1,0 +1,6 @@
+SHOP++
+Copyright 2005-2013 klarclm.com. All rights reserved.
+Support: http://www.klarclm.com
+License: http://www.klarclm.com/license
+Revision: 3.0 RELEASE
+Date: 2013-06
