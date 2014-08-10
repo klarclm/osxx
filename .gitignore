@@ -15,8 +15,10 @@ local.properties
 .classpath
 .settings/
 .loadpath
+
 .myeclipse
 .mymetadata
+WebRoot\WEB-INF\classes
 
 # External tool builders
 .externalToolBuilders/
