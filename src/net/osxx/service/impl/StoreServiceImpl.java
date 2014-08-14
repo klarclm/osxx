@@ -18,6 +18,7 @@ import net.osxx.Order;
 import net.osxx.Page;
 import net.osxx.Pageable;
 import net.osxx.dao.ArticleDao;
+import net.osxx.dao.StoreDao;
 import net.osxx.entity.Article;
 import net.osxx.entity.ArticleCategory;
 import net.osxx.entity.Store;
@@ -42,140 +43,65 @@ import org.springframework.util.Assert;
 @Service("storeServiceImpl")
 public class StoreServiceImpl extends BaseServiceImpl<Store, Long> implements StoreService, DisposableBean {
 
-	/** 查看点击数时间 */
-	private long viewHitsTime = System.currentTimeMillis();
-
 	@Resource(name = "ehCacheManager")
 	private CacheManager cacheManager;
-	@Resource(name = "articleDaoImpl")
-	private ArticleDao articleDao;
-	@Resource(name = "staticServiceImpl")
-	private StaticService staticService;
+	@Resource(name = "storeDaoImpl")
+	private StoreDao storeDao;
+
 
 	@Resource(name = "storeDaoImpl")
-	public void setBaseDao(ArticleDao articleDao) {
-		super.setBaseDao(articleDao);
+	public void setBaseDao(StoreDao storeDao) {
+		super.setBaseDao(storeDao);
 	}
-
-	@Transactional(readOnly = true)
-	public List<Article> findList(ArticleCategory articleCategory, List<Tag> tags, Integer count, List<Filter> filters, List<Order> orders) {
-		return articleDao.findList(articleCategory, tags, count, filters, orders);
-	}
-
-	@Transactional(readOnly = true)
-	@Cacheable("article")
-	public List<Article> findList(ArticleCategory articleCategory, List<Tag> tags, Integer count, List<Filter> filters, List<Order> orders, String cacheRegion) {
-		return articleDao.findList(articleCategory, tags, count, filters, orders);
-	}
-
-	@Transactional(readOnly = true)
-	public List<Article> findList(ArticleCategory articleCategory, Date beginDate, Date endDate, Integer first, Integer count) {
-		return articleDao.findList(articleCategory, beginDate, endDate, first, count);
-	}
-
-	@Transactional(readOnly = true)
-	public Page<Article> findPage(ArticleCategory articleCategory, List<Tag> tags, Pageable pageable) {
-		return articleDao.findPage(articleCategory, tags, pageable);
-	}
-
-	public long viewHits(Long id) {
-		Ehcache cache = cacheManager.getEhcache(Article.HITS_CACHE_NAME);
-		Element element = cache.get(id);
-		Long hits;
-		if (element != null) {
-			hits = (Long) element.getObjectValue();
-		} else {
-			Article article = articleDao.find(id);
-			if (article == null) {
-				return 0L;
-			}
-			hits = article.getHits();
-		}
-		hits++;
-		cache.put(new Element(id, hits));
-		long time = System.currentTimeMillis();
-		if (time > viewHitsTime + Article.HITS_CACHE_INTERVAL) {
-			viewHitsTime = time;
-			updateHits();
-			cache.removeAll();
-		}
-		return hits;
-	}
-
+	
 	public void destroy() throws Exception {
-		updateHits();
-	}
-
-	/**
-	 * 更新点击数
-	 */
-	@SuppressWarnings("unchecked")
-	private void updateHits() {
-		Ehcache cache = cacheManager.getEhcache(Article.HITS_CACHE_NAME);
-		List<Long> ids = cache.getKeys();
-		for (Long id : ids) {
-			Article article = articleDao.find(id);
-			if (article != null) {
-				Element element = cache.get(id);
-				long hits = (Long) element.getObjectValue();
-				article.setHits(hits);
-				articleDao.merge(article);
-			}
-		}
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "article", "articleCategory" }, allEntries = true)
-	public void save(Article article) {
-		Assert.notNull(article);
-
-		super.save(article);
-		articleDao.flush();
-		staticService.build(article);
+	@CacheEvict(value = { "store" }, allEntries = true)
+	public void save(Store store) {
+		Assert.notNull(store);
+		super.save(store);
+		storeDao.flush();
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "article", "articleCategory" }, allEntries = true)
-	public Article update(Article article) {
-		Assert.notNull(article);
-
-		Article pArticle = super.update(article);
-		articleDao.flush();
-		staticService.build(pArticle);
-		return pArticle;
+	@CacheEvict(value = { "store" }, allEntries = true)
+	public Store update(Store store) {
+		Assert.notNull(store);
+		Store pStore = super.update(store);
+		storeDao.flush();
+		return pStore;
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "article", "articleCategory" }, allEntries = true)
-	public Article update(Article article, String... ignoreProperties) {
-		return super.update(article, ignoreProperties);
+	@CacheEvict(value = { "store" }, allEntries = true)
+	public Store update(Store store, String... ignoreProperties) {
+		return super.update(store, ignoreProperties);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "article", "articleCategory" }, allEntries = true)
+	@CacheEvict(value = { "store" }, allEntries = true)
 	public void delete(Long id) {
 		super.delete(id);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "article", "articleCategory" }, allEntries = true)
+	@CacheEvict(value = { "store" }, allEntries = true)
 	public void delete(Long... ids) {
 		super.delete(ids);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "article", "articleCategory" }, allEntries = true)
-	public void delete(Article article) {
-		if (article != null) {
-			staticService.delete(article);
-		}
-		super.delete(article);
+	@CacheEvict(value = { "store" }, allEntries = true)
+	public void delete(Store store) {
+		super.delete(store);
 	}
 
 }

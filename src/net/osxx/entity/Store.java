@@ -49,6 +49,11 @@ public class Store extends BaseEntity  {
 	private Long productcategoryid3Xxproductcategory;
 	private Long productcategoryid4Xxproductcategory;
 	private Long productcategoryid5Xxproductcategory;
+	private Long productcategoryname1Xxproductcategory;
+	private Long productcategoryname2Xxproductcategory;
+	private Long productcategoryname3Xxproductcategory;
+	private Long productcategoryname4Xxproductcategory;
+	private Long productcategoryname5Xxproductcategory;
 	private Long areaidXxarea;
 	private Long reviewservice;
 	private Long reviewquality;
@@ -150,6 +155,55 @@ public class Store extends BaseEntity  {
 	public void setProductcategoryid5Xxproductcategory(
 			Long productcategoryid5Xxproductcategory) {
 		this.productcategoryid5Xxproductcategory = productcategoryid5Xxproductcategory;
+	}
+	@Column(name = "productcategoryname1_xxproductcategory")
+	public Long getProductcategoryname1Xxproductcategory() {
+		return this.productcategoryname1Xxproductcategory;
+	}
+
+	public void setProductcategoryname1Xxproductcategory(
+			Long productcategoryname1Xxproductcategory) {
+		this.productcategoryname1Xxproductcategory = productcategoryname1Xxproductcategory;
+	}
+
+	@Column(name = "productcategoryname2_xxproductcategory")
+	public Long getProductcategoryname2Xxproductcategory() {
+		return this.productcategoryname2Xxproductcategory;
+	}
+
+	public void setProductcategoryname2Xxproductcategory(
+			Long productcategoryname2Xxproductcategory) {
+		this.productcategoryname2Xxproductcategory = productcategoryname2Xxproductcategory;
+	}
+
+	@Column(name = "productcategoryname3_xxproductcategory")
+	public Long getProductcategoryname3Xxproductcategory() {
+		return this.productcategoryname3Xxproductcategory;
+	}
+
+	public void setProductcategoryname3Xxproductcategory(
+			Long productcategoryname3Xxproductcategory) {
+		this.productcategoryname3Xxproductcategory = productcategoryname3Xxproductcategory;
+	}
+
+	@Column(name = "productcategoryname4_xxproductcategory")
+	public Long getProductcategoryname4Xxproductcategory() {
+		return this.productcategoryname4Xxproductcategory;
+	}
+
+	public void setProductcategoryname4Xxproductcategory(
+			Long productcategoryname4Xxproductcategory) {
+		this.productcategoryname4Xxproductcategory = productcategoryname4Xxproductcategory;
+	}
+
+	@Column(name = "productcategoryname5_xxproductcategory")
+	public Long getProductcategoryname5Xxproductcategory() {
+		return this.productcategoryname5Xxproductcategory;
+	}
+
+	public void setProductcategoryname5Xxproductcategory(
+			Long productcategoryname5Xxproductcategory) {
+		this.productcategoryname5Xxproductcategory = productcategoryname5Xxproductcategory;
 	}
 
 	@Column(name = "areaid_xxarea")
