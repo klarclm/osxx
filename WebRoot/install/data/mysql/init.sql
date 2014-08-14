@@ -9,7 +9,6 @@ CREATE TABLE `xx_store` ( `id` bigint(20) NOT NULL AUTO_INCREMENT, `name` varcha
 -- ----------------------------
 -- Records of xx_store
 -- ----------------------------
-INSERT INTO `xx_store` VALUES ('1', '管理员超级平台', '0', null, null, null, null, null, null, null, null, null, null, null, null, '2014-08-13 11:00:27', null, null);
 
 CREATE TABLE `xx_store_rank` ( `id` bigint(20) NOT NULL AUTO_INCREMENT, `create_date` datetime NOT NULL, `modify_date` datetime NOT NULL, `amount` decimal(21,6) DEFAULT NULL, `is_default` bit(1) NOT NULL, `is_special` bit(1) NOT NULL, `name` varchar(100) NOT NULL, `scale` double NOT NULL, PRIMARY KEY (`id`), UNIQUE KEY `name` (`name`), UNIQUE KEY `amount` (`amount`)) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8; 
 -- ----------------------------
