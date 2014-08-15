@@ -32,6 +32,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 @Entity
 @Table(name = "xx_store")
+@SequenceGenerator(name = "sequenceGenerator", sequenceName = "xx_store_sequence")
 public class Store extends BaseEntity  {
 
 	private static final long serialVersionUID = -6950317719006603385L;

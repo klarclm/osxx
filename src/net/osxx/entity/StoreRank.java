@@ -180,7 +180,7 @@ public class StoreRank extends BaseEntity {
 	 * @param members
 	 *            会员
 	 */
-	public void setMembers(Set<Store> stores) {
+	public void setStores(Set<Store> stores) {
 		this.stores = stores;
 	}
 
