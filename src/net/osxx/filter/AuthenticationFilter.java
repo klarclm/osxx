@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.osxx.AuthenticationToken;
+import net.osxx.Principal;
+import net.osxx.entity.Member;
 import net.osxx.service.RSAService;
 
 import org.apache.shiro.session.Session;
@@ -90,6 +92,8 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 		for (Entry<Object, Object> entry : attributes.entrySet()) {
 			session.setAttribute(entry.getKey(), entry.getValue());
 		}
+		Principal principal = (Principal) subject.getPrincipal();
+		session.setAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME, principal);
 		return super.onLoginSuccess(token, subject, servletRequest, servletResponse);
 	}
 
