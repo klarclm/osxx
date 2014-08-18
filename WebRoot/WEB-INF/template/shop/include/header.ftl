@@ -10,6 +10,7 @@ $().ready(function() {
 	var defaultKeyword = "${message("shop.header.keyword")}";
 	
 	var username = getCookie("username");
+	
 	if (username != null) {
 		$headerUsername.text("${message("shop.header.welcome")}, " + username).show();
 		$headerLogout.show();

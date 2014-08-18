@@ -166,6 +166,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 		if (requestAttributes != null) {
 			HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 			Principal principal = (Principal) request.getSession().getAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME);
+			String username =  (String) request.getSession().getAttribute(Member.USERNAME_COOKIE_NAME);
 			if (principal != null) {
 				return memberDao.find(principal.getId());
 			}

@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,11 +21,11 @@ import net.osxx.AuthenticationToken;
 import net.osxx.Principal;
 import net.osxx.entity.Member;
 import net.osxx.service.RSAService;
-import net.osxx.util.WebUtils;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 
 /**
  * Filter - 权限认证
@@ -94,7 +95,11 @@ public class AuthenticationFilter extends FormAuthenticationFilter {
 		}
 		Principal principal = (Principal) subject.getPrincipal();
 		session.setAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME, principal);
-		//WebUtils.addCookie((HttpServletRequest)servletRequest, (HttpServletResponse)servletResponse, Member.USERNAME_COOKIE_NAME, principal.getUsername());
+		String username = principal.getUsername();
+		HttpServletResponse rep = (HttpServletResponse)servletResponse;
+		Cookie cookie = new Cookie(Member.USERNAME_COOKIE_NAME, username);
+		cookie.setPath("/osxx");
+		rep.addCookie(cookie);
 		return super.onLoginSuccess(token, subject, servletRequest, servletResponse);
 	}
 

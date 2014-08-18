@@ -32,6 +32,7 @@ public class LogoutController extends BaseController {
 	public String execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		session.removeAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME);
 		WebUtils.removeCookie(request, response, Member.USERNAME_COOKIE_NAME);
+		WebUtils.removeCookie(request, response, Member.USERNAME_COOKIE_NAME, "/osxx", null);
 		return "redirect:/";
 	}
 
