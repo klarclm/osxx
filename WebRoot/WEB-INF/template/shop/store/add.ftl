@@ -1,23 +1,14 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<base href="<%=basePath%>">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>${message("shop.register.title")}[#if systemShowPowered] - Powered By SHOP++[/#if]</title>
+<meta name="author" content="Operate System" />
+<meta name="copyright" content="SHOP++" />
+<link href="${base}/resources/shop/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${base}/resources/shop/css/register.css" rel="stylesheet" type="text/css" />
 
-<title>My JSP 'add.jsp' starting page</title>
-
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="This is my page">
+<script type="text/javascript">
 
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
@@ -37,6 +28,7 @@
 </head>
 
 <body>
+aaaaaaaaaaa
 	[#include "/shop/include/header.ftl" /]
 	<div class="container register">
 	<div id="store_add_panel" class="easyui-panel" title="My Panel"

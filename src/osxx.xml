@@ -135,10 +135,7 @@
 	<template id="productPrint" type="print" name="购物单打印" templatePath="/admin/print/product.ftl"/>
 	<template id="shippingPrint" type="print" name="配送单打印" templatePath="/admin/print/shipping.ftl"/>
 	
-<<<<<<< HEAD
-	<template id="storeadd" type="page" name="添加店铺" templatePath="/shop/store/add.ftl" />
-=======
 	<template id="storeadd" type="page" name="店铺添加" templatePath="/shop/store/add.ftl"/>
->>>>>>> origin/master
+
 	
 </osxx>
