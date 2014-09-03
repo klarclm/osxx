@@ -5,17 +5,22 @@
  */
 package net.osxx.controller.shop;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
+import net.osxx.Message;
 import net.osxx.Pageable;
 import net.osxx.ResourceNotFoundException;
 import net.osxx.entity.ArticleCategory;
+import net.osxx.entity.Product;
 import net.osxx.entity.Store;
 import net.osxx.service.ArticleCategoryService;
 import net.osxx.service.ArticleService;
 import net.osxx.service.SearchService;
-
 import net.osxx.service.StoreService;
+
 
 
 import org.apache.commons.lang.StringUtils;
@@ -43,6 +48,15 @@ public class StoreController extends BaseController {
 	public String add(Store store, ModelMap model) {
 
 		return "/shop/store/add";
+	}
+	
+	@RequestMapping(value = "/store_item_add", method = RequestMethod.POST)
+	public @ResponseBody
+	Map<String, Object> storeItemAdd(Store store) {
+		Map<String, Object> data = new HashMap<String, Object>();
+        storeService.save(store);
+		data.put("message", SUCCESS_MESSAGE);
+		return data;
 	}
 
 }

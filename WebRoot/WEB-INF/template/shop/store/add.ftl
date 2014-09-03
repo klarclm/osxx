@@ -26,16 +26,52 @@
 	href="../../../../resources/jquery-easyui-1.4/themes/icon.css"
 	type="text/css"></link>
 </head>
+<script type="text/javascript">
+	function submitForm(){
+		$('#store_add_panel').form({
+		url : 'update.jhtml',
+			success : function(data) {
+				if(data.message.type == "success"){
+				$.message(data.message);
+				}
+			}
+		});
 
+	};
+</script>
 <body>
 aaaaaaaaaaa
+bbbbbbbbbbbb
 	[#include "/shop/include/header.ftl" /]
 	<div class="container register">
 	<div id="store_add_panel" class="easyui-panel" title="My Panel"
 		style="width:500px;height:150px;padding:10px;background:#fafafa;"
 		data-options="iconCls:'icon-save',closable:true,
                 collapsible:true,minimizable:true,maximizable:true,border:false">
+              
+		<form id="store_add_addform" method="post">
+		<table>
+			<tr>
+				<th>店铺名字</th>
+				<td><input name="name" class="easyui-validatebox" data-options="required:true,missingMessage:'店铺名字'" />
+				</td>
+			</tr>
+			<tr>
+				<th>店铺能提供的产品服务范畴</th>
+				<td><input  name="productcategoryid1Xxproductcategory" class="easyui-validatebox" data-options="required:true,missingMessage:'必填'" />
+				</td><td><input  name="productcategoryid2Xxproductcategory" class="easyui-validatebox" />
+				</td><td><input  name="productcategoryid3Xxproductcategory" class="easyui-validatebox" />
+				</td>
+			</tr>
+				<tr>
+				<th>店铺所在地</th>
+				<td><input name="areaidXxarea" class="easyui-validatebox" data-options="required:true,missingMessage:'店铺所在地'" />
+				</td>
+			</tr>
 
+		</table>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
+		</form>
 	</div>
 	[#include "/shop/include/footer.ftl" /]
 
