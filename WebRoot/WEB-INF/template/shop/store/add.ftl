@@ -8,36 +8,30 @@
 <link href="${base}/resources/shop/css/common.css" rel="stylesheet" type="text/css" />
 <link href="${base}/resources/shop/css/register.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript">
-
-<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 <script type="text/javascript"
-	src="../../../../resources/jquery-easyui-1.4/jquery.min.js"></script>
+	src="${base}/resources/jquery-easyui-1.4/jquery.js"></script>
 <script type="text/javascript"
-	src="../../../../resources/jquery-easyui-1.4/locale/easyui-lang-zh_CN.js"></script>
+	src="${base}/resources/jquery-easyui-1.4/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript"
-	src="../../../../resources/jquery-easyui-1.4/jquery.easyui.min.js"></script>
+	src="${base}/resources/jquery-easyui-1.4/jquery.easyui.min.js"></script>
 <link rel="stylesheet"
-	href="../../../../resources/jquery-easyui-1.4/themes/default/easyui.css"
+	href="${base}/resources/jquery-easyui-1.4/themes/default/easyui.css"
 	type="text/css"></link>
 <link rel="stylesheet"
-	href="../../../../resources/jquery-easyui-1.4/themes/icon.css"
+	href="${base}/resources/jquery-easyui-1.4/themes/icon.css"
 	type="text/css"></link>
 </head>
 <script type="text/javascript">
-	function submitForm(){
-		$('#store_add_panel').form({
-		url : 'update.jhtml',
-			success : function(data) {
+	
+	$(function(){
+			$('#store_add_addform').form({
+			    success : function(data) {
 				if(data.message.type == "success"){
 				$.message(data.message);
 				}
 			}
+			});
 		});
-
-	};
 </script>
 <body>
 aaaaaaaaaaa
@@ -49,7 +43,7 @@ bbbbbbbbbbbb
 		data-options="iconCls:'icon-save',closable:true,
                 collapsible:true,minimizable:true,maximizable:true,border:false">
               
-		<form id="store_add_addform" method="post">
+		<form id="store_add_addform"  action="store_item_add.jhtml" method="post" >
 		<table>
 			<tr>
 				<th>店铺名字</th>
@@ -68,9 +62,11 @@ bbbbbbbbbbbb
 				<td><input name="areaidXxarea" class="easyui-validatebox" data-options="required:true,missingMessage:'店铺所在地'" />
 				</td>
 			</tr>
-
+							<tr>
+					<td></td>
+					<td><input type="submit" value="Submit"></input></td>
+				</tr>
 		</table>
-		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
 		</form>
 	</div>
 	[#include "/shop/include/footer.ftl" /]

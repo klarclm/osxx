@@ -50,7 +50,7 @@ public class StoreController extends BaseController {
 		return "/shop/store/add";
 	}
 	
-	@RequestMapping(value = "/store_item_add", method = RequestMethod.POST)
+	@RequestMapping(value = "/store_item_add")
 	public @ResponseBody
 	Map<String, Object> storeItemAdd(Store store) {
 		Map<String, Object> data = new HashMap<String, Object>();
