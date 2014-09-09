@@ -7,6 +7,7 @@ package net.osxx.controller.shop;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -18,8 +19,12 @@ import net.osxx.entity.Product;
 import net.osxx.entity.Store;
 import net.osxx.service.ArticleCategoryService;
 import net.osxx.service.ArticleService;
+import net.osxx.service.CaptchaService;
 import net.osxx.service.SearchService;
 import net.osxx.service.StoreService;
+
+
+
 
 
 
@@ -43,16 +48,19 @@ public class StoreController extends BaseController {
 
 	@Resource(name = "storeServiceImpl")
 	private StoreService storeService;
+	
+	@Resource(name = "captchaServiceImpl")
+	private CaptchaService captchaService;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String add(Store store, ModelMap model) {
-
+		model.addAttribute("captchaId", UUID.randomUUID().toString());
 		return "/shop/store/add";
 	}
 	
 	@RequestMapping(value = "/store_item_add")
 	public @ResponseBody
-	Map<String, Object> storeItemAdd(Store store) {
+	Map<String, Object> storeItemAdd(Store store,String captchaId, String captcha) {
 		Map<String, Object> data = new HashMap<String, Object>();
         storeService.save(store);
 		data.put("message", SUCCESS_MESSAGE);
