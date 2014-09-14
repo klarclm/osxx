@@ -59,7 +59,7 @@ public class StoreServiceImpl extends BaseServiceImpl<Store, Long> implements St
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "store" }, allEntries = true)
+//	@CacheEvict(value = { "store" }, allEntries = true)
 	public void save(Store store) {
 		Assert.notNull(store);
 		super.save(store);
@@ -68,7 +68,7 @@ public class StoreServiceImpl extends BaseServiceImpl<Store, Long> implements St
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "store" }, allEntries = true)
+//	@CacheEvict(value = { "store" }, allEntries = true)
 	public Store update(Store store) {
 		Assert.notNull(store);
 		Store pStore = super.update(store);
@@ -78,28 +78,28 @@ public class StoreServiceImpl extends BaseServiceImpl<Store, Long> implements St
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "store" }, allEntries = true)
+//	@CacheEvict(value = { "store" }, allEntries = true)
 	public Store update(Store store, String... ignoreProperties) {
 		return super.update(store, ignoreProperties);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "store" }, allEntries = true)
+//	@CacheEvict(value = { "store" }, allEntries = true)
 	public void delete(Long id) {
 		super.delete(id);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "store" }, allEntries = true)
+//	@CacheEvict(value = { "store" }, allEntries = true)
 	public void delete(Long... ids) {
 		super.delete(ids);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "store" }, allEntries = true)
+//	@CacheEvict(value = { "store" }, allEntries = true)
 	public void delete(Store store) {
 		super.delete(store);
 	}

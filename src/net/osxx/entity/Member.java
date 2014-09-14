@@ -90,7 +90,10 @@ public class Member extends BaseEntity {
 
 	/** E-mail */
 	private String email;
-
+	
+	/** store id */
+	private Long storeid_xxstore;
+	
 	/** 积分 */
 	private Long point;
 
@@ -260,7 +263,24 @@ public class Member extends BaseEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	/**
+	 * 获取storeid_xxstore
+	 * 
+	 * @return storeid_xxstore
+	 */
+	public Long getStoreid_xxstore() {
+		return storeid_xxstore;
+	}
 
+	/**
+	 * 设置store id
+	 * 
+	 * @param storeid_xxstore
+	 *            storeid_xxstore
+	 */
+	public void setStoreid_xxstore(Long storeid_xxstore) {
+		this.storeid_xxstore = storeid_xxstore;
+	}
 	/**
 	 * 获取E-mail
 	 * 

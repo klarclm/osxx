@@ -8,6 +8,8 @@ package net.osxx.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+
 import net.osxx.Filter;
 import net.osxx.Order;
 import net.osxx.Page;
@@ -24,6 +26,6 @@ import net.osxx.entity.Tag;
  * @version 3.0
  */
 public interface StoreService extends BaseService<Store, Long> {
-
+	public void save(Store store) ;
 
 }

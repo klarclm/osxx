@@ -5,6 +5,7 @@ $().ready(function() {
 	var $headerRegister = $("#headerRegister");
 	var $headerUsername = $("#headerUsername");
 	var $headerLogout = $("#headerLogout");
+	var $storename = $("#storename");
 	var $productSearchForm = $("#productSearchForm");
 	var $keyword = $("#productSearchForm input");
 	var defaultKeyword = "${message("shop.header.keyword")}";
@@ -19,6 +20,22 @@ $().ready(function() {
 		$headerRegister.show();
 	}
 	
+						$.ajax({
+						url: ${base}/store/store_currentstorename.jhtml,
+						type: "POST",
+						data: {},
+						dataType: "json",
+						cache: false,
+						success: function(data) {
+							if (data.message.type == "success") {
+								$storename.text("data.storename").show();
+							}
+							else{
+								store_currentstorename
+							}
+						}
+					});
+
 	$keyword.focus(function() {
 		if ($keyword.val() == defaultKeyword) {
 			$keyword.val("");
@@ -58,6 +75,10 @@ $().ready(function() {
 				</li>
 				<li id="headerRegister" class="headerRegister">
 					<a href="${base}/register.jhtml">${message("shop.header.register")}</a>|
+				</li>
+				<li id="storename" class="storename"></li>
+				<li id="storeRegister" class="storeRegister">
+					<a href="${base}/store/add.jhtml">添加商铺</a>|
 				</li>
 				<li id="headerUsername" class="headerUsername"></li>
 				<li id="headerLogout" class="headerLogout">
