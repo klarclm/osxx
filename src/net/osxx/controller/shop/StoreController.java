@@ -97,6 +97,7 @@ public class StoreController extends BaseController {
 	
 	@RequestMapping(value = "/store_item_add", method = RequestMethod.POST)
     @ResponseBody
+    @RequiresAuthentication
 	public Map<String, Object> storeItemAdd(Store store, String captchaId, String captcha) {
 		Map<String, Object> data = new HashMap<String, Object>();
 		

@@ -199,7 +199,7 @@
 
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/admin/*</url-pattern>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>

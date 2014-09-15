@@ -76,6 +76,8 @@
 				/admin/log/** = perms["admin:log"]
 
 				/admin/** = authc
+				
+				/** = anon
 			</value>
 		</property>
 		<property name="filters">
@@ -100,9 +102,13 @@
 
 	<bean id="authenticationFilter" class="net.osxx.filter.AuthenticationFilter" />
 
-	<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager" />
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod"
+			value="org.apache.shiro.SecurityUtils.setSecurityManager" />
 		<property name="arguments" ref="securityManager" />
 	</bean>
-
+  <!-- Spring Integration -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+ 
 </beans>
