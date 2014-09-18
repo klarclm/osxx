@@ -16,8 +16,8 @@
 		ignore-resource-not-found="true" ignore-unresolvable="true" />
 
 	<context:component-scan base-package="net.osxx">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -192,9 +192,10 @@
 		<property name="corePoolSize" value="${task.core_pool_size}" />
 		<property name="maxPoolSize" value="${task.max_pool_size}" />
 		<property name="queueCapacity" value="${task.queue_capacity}" />
-		<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
+	<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
 	</bean>
 
+       
 	<task:annotation-driven />
 
 </beans>
