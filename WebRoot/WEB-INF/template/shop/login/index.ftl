@@ -59,7 +59,12 @@ $().ready(function() {
 					<div class="title">
 						<strong>${message("shop.login.title")}</strong>USER LOGIN
 					</div>
-					<iframe id="iframe" name="iframe" src="${base}/admin/login.jsp" frameborder="0"></iframe>
+					  <iframe id="iframe" name="iframe" src="${base}/admin/login.jsp" frameborder="0"></iframe>
+					<form action="" method="post">
+    用户名：<input type="text" name="username"><br/>
+    密码：<input type="password" name="password"><br/>
+    <input type="submit" value="登录">
+</form>
 				</div>
 			</div>
 		</div>

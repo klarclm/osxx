@@ -84,6 +84,9 @@ $().ready(function() {
 				<li id="headerLogout" class="headerLogout">
 					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
 				</li>
+				<li id="admincommonmainpage" class="admincommonmainpage">
+					<a href="${base}/admin/common/main.jhtml">管理页面</a>|
+				</li>
 				[@navigation_list position = "top"]
 					[#list navigations as navigation]
 						<li>

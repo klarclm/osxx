@@ -73,7 +73,7 @@ public class LoginController extends BaseController {
 	/**
 	 * 登录页面
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/index",method = RequestMethod.GET)
 	public String index(String redirectUrl, HttpServletRequest request, ModelMap model) {
 		Setting setting = SettingUtils.get();
 		if (redirectUrl != null && !redirectUrl.equalsIgnoreCase(setting.getSiteUrl()) && !redirectUrl.startsWith(request.getContextPath() + "/") && !redirectUrl.startsWith(setting.getSiteUrl() + "/")) {
