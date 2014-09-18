@@ -25,22 +25,22 @@
 	<mvc:annotation-driven validator="validator" />
 
 	<mvc:interceptors>
-		<mvc:interceptor>
+<!-- 		<mvc:interceptor>
 			<mvc:mapping path="/order/**" />
 			<mvc:mapping path="/member/**" />
 			<bean id="memberInterceptor" class="net.osxx.interceptor.MemberInterceptor" />
-		</mvc:interceptor>
+		</mvc:interceptor> -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/payment/**" />
 			<bean id="tokenInterceptor" class="net.osxx.interceptor.TokenInterceptor" />
 		</mvc:interceptor>
-		<!-- 
+		
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
 			<bean id="executeTimeInterceptor" class="net.osxx.interceptor.ExecuteTimeInterceptor" />
 		</mvc:interceptor>
-		-->
+		
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
 			<bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
