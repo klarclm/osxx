@@ -36,7 +36,7 @@ public interface AdminService extends BaseService<Admin, Long> {
 	Admin findByUsername(String username);
 
 	/**
-	 * 根据ID查找权限
+	 * 根据ID查找权限  此id是admin的id，在findautho。。。方法中通过此id去查adminrole表，得到角色，再去角色表查权限列表
 	 * 
 	 * @param id
 	 *            ID

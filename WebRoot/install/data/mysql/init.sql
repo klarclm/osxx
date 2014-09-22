@@ -2,8 +2,8 @@
 -- Copyright 2005-2013 klarclm.com. All rights reserved.
 -- Support: http://www.klarclm.com
 -- License: http://www.klarclm.com/license
+CREATE TABLE `xx_member_role` ( `memberid` bigint(20) NOT NULL, `roleid` bigint(20) DEFAULT NULL, PRIMARY KEY (`memberid`), KEY `memberrole_index1` (`memberid`) USING BTREE, KEY `memberrole_index2` (`roleid`) USING BTREE, CONSTRAINT `memberrole_f1` FOREIGN KEY (`memberid`) REFERENCES `xx_member` (`id`), CONSTRAINT `memberrole_f2` FOREIGN KEY (`roleid`) REFERENCES `xx_role` (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8; -- 初始化数据库表结构 --
 
--- 初始化数据库表结构 --
 CREATE TABLE `xx_store` ( `id` bigint(20) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `ownerid_xxmember` bigint(20) NOT NULL, `logo` varchar(255) DEFAULT NULL, `rank` bigint(20) DEFAULT NULL, `pageshowcontent` longtext, `productcategoryid1_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid2_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid3_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid4_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid5_xxproductcategory` bigint(20) DEFAULT NULL,`productcategoryname1_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname2_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname3_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname4_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname5_xxproductcategory` varchar(255) DEFAULT NULL, `areaid_xxarea` bigint(20) DEFAULT NULL, `reviewservice` bigint(20) DEFAULT NULL, `reviewquality` bigint(20) DEFAULT NULL, `reviewspeed` bigint(20) DEFAULT NULL, `createdate` datetime NOT NULL, `modifydate` datetime DEFAULT NULL, `modifycolumnname` varchar(255) DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
@@ -239,6 +239,8 @@ insert into xx_role_authority (role, authorities) values(1, 'admin:admin')
 insert into xx_role_authority (role, authorities) values(1, 'admin:role')
 insert into xx_role_authority (role, authorities) values(1, 'admin:message')
 insert into xx_role_authority (role, authorities) values(1, 'admin:log')
+insert into xx_role_authority (role, authorities) values(1, 'member:storeowner')
+insert into xx_role_authority (role, authorities) values(1, 'member:idauth')
 
 insert into xx_admin (id, create_date, modify_date, department, email, is_enabled, is_locked, locked_date, login_date, login_failure_count, login_ip, name, password, username) values(1, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', '技术部', 'admin@klarclm.com', ${bit1}, ${bit0}, NULL, '${date?string("yyyy-MM-dd HH:mm:ss")}', 0, NULL, '管理员', '${adminPassword}', '${adminUsername}')
 

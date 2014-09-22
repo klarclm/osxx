@@ -82,7 +82,7 @@ $().ready(function() {
 				</li>
 				<li id="headerUsername" class="headerUsername"></li>
 				<li id="headerLogout" class="headerLogout">
-					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
+					<a href="${base}/admin/logout.jsp">[${message("shop.header.logout")}]</a>|
 				</li>
 				<li id="admincommonmainpage" class="admincommonmainpage">
 					<a href="${base}/admin/common/main.jhtml">管理页面</a>|
