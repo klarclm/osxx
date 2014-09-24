@@ -5,10 +5,15 @@
  */
 package net.osxx.controller.shop.member;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import net.osxx.controller.shop.BaseController;
 import net.osxx.entity.Member;
+import net.osxx.entity.Role;
+import net.osxx.entity.Store;
 import net.osxx.service.ConsultationService;
 import net.osxx.service.CouponCodeService;
 import net.osxx.service.MemberService;
@@ -22,6 +27,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * Controller - 会员中心
@@ -71,4 +79,29 @@ public class MemberController extends BaseController {
 		return "shop/member/index";
 	}
 
+	@RequestMapping(value = "/getMemberState", method = RequestMethod.POST)
+	public @ResponseBody
+	Map<String, Object> getMemberState() {
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		try {
+			Member user = memberService.getCurrent();
+			if(user != null){
+				data.put("isAuthenticated", true);
+				data.put("member", user);
+				
+				if(user.getRoleId() == Role.ROLE_NORMALUSER){
+					data.put("isStoreOwner",false);
+				}else{
+					data.put("isStoreOwner", true);
+				}
+			}else{
+				data.put("isAuthenticated", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return data;
+	}
 }

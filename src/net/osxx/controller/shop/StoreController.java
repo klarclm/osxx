@@ -133,21 +133,5 @@ public class StoreController extends BaseController {
 		return data;
 	}
 
-	@RequestMapping(value = "/store_currentstorename", method = RequestMethod.POST)
-	public @ResponseBody
-	Map<String, Object> getCurrentStoreName() {
-		Map<String, Object> data = new HashMap<String, Object>();
 
-		try {
-			Member user = memberService.getCurrent();
-			Store store = storeService.find(user.getStoreid_xxstore());
-			data.put("storename", store.getName());
-			data.put("message", SUCCESS_MESSAGE);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return data;
-	}
 }

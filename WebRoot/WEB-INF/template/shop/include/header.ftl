@@ -1,4 +1,3 @@
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <script type="text/javascript">
 $().ready(function() {
 
@@ -9,26 +8,41 @@ $().ready(function() {
 	var $productSearchForm = $("#productSearchForm");
 	var $keyword = $("#productSearchForm input");
 	var defaultKeyword = "${message("shop.header.keyword")}";
+	var $headerUsername = $("#headerUsername");
+	var $storeRegister = $("#storeRegister")
+	var $admincommonmainpage = $("#admincommonmainpage")
 	
 	var username = getCookie("username");
+	if (username != null) {
+		$headerUsername.text("${message("shop.header.welcome")}, " + username).show();
+		$headerLogout.show();
+	} else {
+		$headerLogin.show();
+		$headerRegister.show();
+	}
 	
-
-	
-						$.ajax({
-						url: ${base}/store/store_currentstorename.jhtml,
-						type: "POST",
-						data: {},
-						dataType: "json",
-						cache: false,
-						success: function(data) {
-							if (data.message.type == "success") {
-								$storename.text("data.storename").show();
-							}
-							else{
-								store_currentstorename
-							}
-						}
-					});
+	$.ajax({
+	url: ${base}/member/getMemberState.jhtml,
+	type: "POST",
+	data: {},
+	dataType: "json",
+	cache: false,
+	success: function(data) {
+		if (data.isAuthenticated == true) {
+			$headerUsername.text("${message("shop.header.welcome")}, " + data.user.username).show();
+			$headerLogout.show();
+			if(data.isStoreOwner == true){
+				$storeRegister.hide();
+				$admincommonmainpage.show();
+			}
+		}
+		else{
+			$headerUsername.hide();
+			$headerLogin.show();
+			$headerRegister.show();
+		}
+	}
+	});
 
 	$keyword.focus(function() {
 		if ($keyword.val() == defaultKeyword) {
@@ -65,29 +79,23 @@ $().ready(function() {
 		<div class="topNav clearfix">
 			<ul>
 
-			<shiro:notAuthenticated>
-				<li id="headerLogin" class="headerLogin">
+				<li id="headerLogin" class="headerLogin" style="display:none">
 					<a href="${base}/login/index.jhtml">${message("shop.header.login")}</a>|
 				</li>
-				<li id="headerRegister" class="headerRegister">
+				<li id="headerRegister" class="headerRegister" style="display:none">
 					<a href="${base}/register.jhtml">${message("shop.header.register")}</a>|
 				</li>
-			</shiro:notAuthenticated>
-			<shiro:authenticated>
-				<li id="admincommonmainpage" class="admincommonmainpage">
+				<li id="admincommonmainpage" class="admincommonmainpage" style="display:none">
 					<a href="${base}/admin/common/main.jhtml">管理页面</a>|
 				</li>
-				<li id="headerLogout" class="headerLogout">
+				<li id="headerUsername" class="headerUsername"  style="display:none"></li>
+				<li id="headerLogout" class="headerLogout"  style="display:none">
 					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
 				</li>
-				<shiro:principal/>
-			</shiro:authenticated>			
-			<shiro:hasPermission name="admin:storeOwner">
-		<li id="storename" class="storename"></li>
-		<li id="storeRegister" class="storeRegister">
-		<a href="${base}/store/add.jhtml">添加商铺</a>|
-		</li>
-			</shiro:hasPermission>
+				<li id="storeRegister" class="storeRegister"  style="display:none">
+				<a href="${base}/store/add.jhtml">添加商铺</a>|
+				</li>
+				
 				[@navigation_list position = "top"]
 					[#list navigations as navigation]
 						<li>
