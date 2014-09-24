@@ -33,7 +33,7 @@ public class LogoutController extends BaseController {
 		session.removeAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME);
 		WebUtils.removeCookie(request, response, Member.USERNAME_COOKIE_NAME);
 		WebUtils.removeCookie(request, response, Member.USERNAME_COOKIE_NAME, "/osxx", null);
-		return "redirect:/";
+		return "redirect:/admin/logout.jsp";
 	}
 
 }

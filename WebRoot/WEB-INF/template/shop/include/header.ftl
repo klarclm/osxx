@@ -71,7 +71,7 @@ $().ready(function() {
 		<div class="topNav clearfix">
 			<ul>
 				<li id="headerLogin" class="headerLogin">
-					<a href="${base}/login.jhtml">${message("shop.header.login")}</a>|
+					<a href="${base}/login/index.jhtml">${message("shop.header.login")}</a>|
 				</li>
 				<li id="headerRegister" class="headerRegister">
 					<a href="${base}/register.jhtml">${message("shop.header.register")}</a>|
@@ -82,7 +82,7 @@ $().ready(function() {
 				</li>
 				<li id="headerUsername" class="headerUsername"></li>
 				<li id="headerLogout" class="headerLogout">
-					<a href="${base}/admin/logout.jsp">[${message("shop.header.logout")}]</a>|
+					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
 				</li>
 				<li id="admincommonmainpage" class="admincommonmainpage">
 					<a href="${base}/admin/common/main.jhtml">管理页面</a>|
