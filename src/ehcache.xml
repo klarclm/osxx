@@ -4,7 +4,7 @@
 
 	<diskStore path="${java.io.tmpdir}/${system.project_name}/cache" />
 
-	<cache name="authorization" maxElementsInMemory="100"
+<!-- 	<cache name="authorization" maxElementsInMemory="100"
 		timeToLiveSeconds="3600" eternal="false" overflowToDisk="false" />
 	<cache name="setting" maxElementsInMemory="100" eternal="true"
 		overflowToDisk="true" />
@@ -57,7 +57,7 @@
 		overflowToDisk="true" />
 	<cache name="promotion" maxElementsInMemory="500"
 		timeToIdleSeconds="3600" timeToLiveSeconds="86400" eternal="false"
-		overflowToDisk="true" />
+		overflowToDisk="true" /> -->
 <!-- 	<cache name="store" maxElementsInMemory="500" timeToIdleSeconds="3600" -->
 <!-- 		timeToLiveSeconds="86400" eternal="false" overflowToDisk="true" /> -->
 </ehcache>
