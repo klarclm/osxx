@@ -42,6 +42,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import sun.security.util.BigInt;
+
 /**
  * Entity - 会员
  * 
@@ -129,7 +131,10 @@ public class Member extends BaseEntity {
 
 	/** 性别 */
 	private Gender gender;
-
+	
+	/** 角色*/
+	private Long roleId;
+	
 	/** 出生日期 */
 	private Date birth;
 
@@ -303,7 +308,28 @@ public class Member extends BaseEntity {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/**
+	 * 获取积分
+	 * 
+	 * @return 积分
+	 */
+	@NotNull(groups = Save.class)
+	@Min(0)
+	@Column(nullable = false)
+	public Long getRoleId() {
+		return roleId;
+	}
 
+	/**
+	 * 设置积分
+	 * 
+	 * @param point
+	 *            积分
+	 */
+	public void setRoleId(Long roleId) {
+		this.roleId= roleId;
+	}
+	
 	/**
 	 * 获取积分
 	 * 

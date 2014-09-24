@@ -44,7 +44,7 @@ create table xx_friend_link (id bigint not null auto_increment, create_date date
 create table xx_gift_item (id bigint not null auto_increment, create_date datetime not null, modify_date datetime not null, quantity integer not null, gift bigint not null, promotion bigint not null, primary key (id), unique (gift, promotion))
 create table xx_goods (id bigint not null auto_increment, create_date datetime not null, modify_date datetime not null, primary key (id))
 create table xx_log (id bigint not null auto_increment, create_date datetime not null, modify_date datetime not null, content longtext, ip varchar(255) not null, operation varchar(255) not null, operator varchar(255), parameter longtext, primary key (id))
-create table xx_member (id bigint not null auto_increment, create_date datetime not null, modify_date datetime not null, storeid_xxstore bigint(20) DEFAULT '-1',address varchar(255), amount decimal(27,12) not null, attribute_value0 varchar(255), attribute_value1 varchar(255), attribute_value2 varchar(255), attribute_value3 varchar(255), attribute_value4 varchar(255), attribute_value5 varchar(255), attribute_value6 varchar(255), attribute_value7 varchar(255), attribute_value8 varchar(255), attribute_value9 varchar(255), balance decimal(27,12) not null, birth datetime, email varchar(255) not null, gender integer, is_enabled bit not null, is_locked bit not null, locked_date datetime, login_date datetime, login_failure_count integer not null, login_ip varchar(255), mobile varchar(255), name varchar(255), password varchar(255) not null, phone varchar(255), point bigint not null, register_ip varchar(255) not null, safe_key_expire datetime, safe_key_value varchar(255), username varchar(100) not null unique, zip_code varchar(255), area bigint, member_rank bigint not null, primary key (id))
+create table xx_member (id bigint not null auto_increment, create_date datetime not null, modify_date datetime not null, storeid_xxstore bigint(20) DEFAULT '-1',address varchar(255), amount decimal(27,12) not null, attribute_value0 varchar(255), attribute_value1 varchar(255), attribute_value2 varchar(255), attribute_value3 varchar(255), attribute_value4 varchar(255), attribute_value5 varchar(255), attribute_value6 varchar(255), attribute_value7 varchar(255), attribute_value8 varchar(255), attribute_value9 varchar(255), balance decimal(27,12) not null, birth datetime, email varchar(255) not null, gender integer, is_enabled bit not null, is_locked bit not null, locked_date datetime, login_date datetime, login_failure_count integer not null, login_ip varchar(255), mobile varchar(255), name varchar(255), password varchar(255) not null, phone varchar(255), point bigint not null, register_ip varchar(255) not null, safe_key_expire datetime, safe_key_value varchar(255), username varchar(100) not null unique, zip_code varchar(255), area bigint, member_rank bigint not null,`role` bigint(20) NOT NULL DEFAULT '3', primary key (id))
 create table xx_member_attribute (id bigint not null auto_increment, create_date datetime not null, modify_date datetime not null, orders integer, is_enabled bit not null, is_required bit not null, name varchar(255) not null, property_index integer, type integer not null, primary key (id))
 create table xx_member_attribute_option (member_attribute bigint not null, options varchar(255))
 create table xx_member_favorite_product (favorite_members bigint not null, favorite_products bigint not null, primary key (favorite_members, favorite_products))
@@ -186,7 +186,10 @@ alter table xx_shipping_item add index FKCCE65405FF407320 (shipping), add constr
 alter table xx_shipping_method add index FK32A8355346542319 (default_delivery_corp), add constraint FK32A8355346542319 foreign key (default_delivery_corp) references xx_delivery_corp (id)
 alter table xx_specification_value add index FK5E624376629A04C2 (specification), add constraint FK5E624376629A04C2 foreign key (specification) references xx_specification (id)
 
-insert into xx_role (id, create_date, modify_date, description, is_system, name) values(1, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', '拥有管理后台最高权限', ${bit1}, '超级管理员')
+-- insert into xx_role (id, create_date, modify_date, description, is_system, name) values(1, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', '拥有管理后台最高权限', ${bit1}, '超级管理员')
+INSERT INTO `xx_role` VALUES ('1', '2014-08-12 00:02:51', '2014-08-14 00:02:51', '拥有管理后台最高权限', '1', '超级店长');
+INSERT INTO `xx_role` VALUES ('2', '2014-09-12 12:33:33', '2014-09-24 13:33:33', '开店铺的店长', '1', '店长');
+INSERT INTO `xx_role` VALUES ('3', '2014-09-12 12:33:33', '2014-09-24 13:33:33', '普通注册用户', '1', '普通用户');
 
 insert into xx_role_authority (role, authorities) values(1, 'admin:product')
 insert into xx_role_authority (role, authorities) values(1, 'admin:productCategory')
@@ -239,8 +242,29 @@ insert into xx_role_authority (role, authorities) values(1, 'admin:admin')
 insert into xx_role_authority (role, authorities) values(1, 'admin:role')
 insert into xx_role_authority (role, authorities) values(1, 'admin:message')
 insert into xx_role_authority (role, authorities) values(1, 'admin:log')
-insert into xx_role_authority (role, authorities) values(1, 'member:storeowner')
-insert into xx_role_authority (role, authorities) values(1, 'member:idauth')
+insert into xx_role_authority (role, authorities) values(1, 'admin:storeOwner')
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:product');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:productCategory');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:parameterGroup');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:attribute');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:specification');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:brand');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:productNotify');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:order');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:print');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:payment');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:refunds');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:shipping');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:returns');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:deliveryCenter');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:deliveryTemplate');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:promotion');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:coupon');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:statistics');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:sales');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:salesRanking');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:purchaseRanking');
+INSERT INTO `xx_role_authority` VALUES ('2', 'admin:deposit');
 
 insert into xx_admin (id, create_date, modify_date, department, email, is_enabled, is_locked, locked_date, login_date, login_failure_count, login_ip, name, password, username) values(1, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', '技术部', 'admin@klarclm.com', ${bit1}, ${bit0}, NULL, '${date?string("yyyy-MM-dd HH:mm:ss")}', 0, NULL, '管理员', '${adminPassword}', '${adminUsername}')
 

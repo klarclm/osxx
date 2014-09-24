@@ -136,6 +136,7 @@
 	<template id="shippingPrint" type="print" name="配送单打印" templatePath="/admin/print/shipping.ftl"/>
 	
 	<template id="storeadd" type="page" name="店铺添加" templatePath="/shop/store/add.ftl"/>
+	<template id="storeshow" type="page" name="店铺显示 " templatePath="/shop/store/show.ftl"/>
 
 	
 </osxx>

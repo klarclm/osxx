@@ -20,6 +20,7 @@ import net.osxx.dao.MemberDao;
 import net.osxx.entity.Admin;
 import net.osxx.entity.Deposit;
 import net.osxx.entity.Member;
+import net.osxx.entity.Role;
 import net.osxx.service.MemberService;
 import net.osxx.util.SettingUtils;
 
@@ -89,6 +90,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 
 	public void save(Member member, Admin operator) {
 		Assert.notNull(member);
+		
 		memberDao.persist(member);
 		if (member.getBalance().compareTo(new BigDecimal(0)) > 0) {
 			Deposit deposit = new Deposit();

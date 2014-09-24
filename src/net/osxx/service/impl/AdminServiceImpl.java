@@ -15,12 +15,15 @@ import net.osxx.dao.AdminDao;
 import net.osxx.entity.Admin;
 import net.osxx.entity.Role;
 import net.osxx.service.AdminService;
+import net.osxx.service.MemberService;
+import net.osxx.service.RoleService;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 /**
  * Service - 管理员
@@ -34,6 +37,12 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements Ad
 	@Resource(name = "adminDaoImpl")
 	private AdminDao adminDao;
 
+	@Resource(name = "memberServiceImpl")
+	MemberService memberService;
+	
+	@Resource(name = "roleServiceImpl")
+	RoleService roleService;
+	
 	@Resource(name = "adminDaoImpl")
 	public void setBaseDao(AdminDao adminDao) {
 		super.setBaseDao(adminDao);
@@ -49,6 +58,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements Ad
 		return adminDao.findByUsername(username);
 	}
 
+
 	@Transactional(readOnly = true)
 	public List<String> findAuthorities(Long id) {
 		List<String> authorities = new ArrayList<String>();
@@ -57,6 +67,19 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements Ad
 			for (Role role : admin.getRoles()) {
 				authorities.addAll(role.getAuthorities());
 			}
+		}
+		else {
+			/**
+		     *合并member权限
+			 */
+			net.osxx.entity.Member user = memberService.find(id);
+			if (user != null) {
+				Role role = roleService.find(user.getRoleId());
+				if(role != null) {
+					authorities.addAll(role.getAuthorities());
+				}
+			}
+			
 		}
 		return authorities;
 	}

@@ -1,9 +1,9 @@
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <script type="text/javascript">
 $().ready(function() {
 
 	var $headerLogin = $("#headerLogin");
 	var $headerRegister = $("#headerRegister");
-	var $headerUsername = $("#headerUsername");
 	var $headerLogout = $("#headerLogout");
 	var $storename = $("#storename");
 	var $productSearchForm = $("#productSearchForm");
@@ -12,13 +12,7 @@ $().ready(function() {
 	
 	var username = getCookie("username");
 	
-	if (username != null) {
-		$headerUsername.text("${message("shop.header.welcome")}, " + username).show();
-		$headerLogout.show();
-	} else {
-		$headerLogin.show();
-		$headerRegister.show();
-	}
+
 	
 						$.ajax({
 						url: ${base}/store/store_currentstorename.jhtml,
@@ -70,23 +64,30 @@ $().ready(function() {
 	<div class="span10 last">
 		<div class="topNav clearfix">
 			<ul>
+
+			<shiro:notAuthenticated>
 				<li id="headerLogin" class="headerLogin">
 					<a href="${base}/login/index.jhtml">${message("shop.header.login")}</a>|
 				</li>
 				<li id="headerRegister" class="headerRegister">
 					<a href="${base}/register.jhtml">${message("shop.header.register")}</a>|
 				</li>
-				<li id="storename" class="storename"></li>
-				<li id="storeRegister" class="storeRegister">
-					<a href="${base}/store/add.jhtml">添加商铺</a>|
-				</li>
-				<li id="headerUsername" class="headerUsername"></li>
-				<li id="headerLogout" class="headerLogout">
-					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
-				</li>
+			</shiro:notAuthenticated>
+			<shiro:authenticated>
 				<li id="admincommonmainpage" class="admincommonmainpage">
 					<a href="${base}/admin/common/main.jhtml">管理页面</a>|
 				</li>
+				<li id="headerLogout" class="headerLogout">
+					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
+				</li>
+				<shiro:principal/>
+			</shiro:authenticated>			
+			<shiro:hasPermission name="admin:storeOwner">
+		<li id="storename" class="storename"></li>
+		<li id="storeRegister" class="storeRegister">
+		<a href="${base}/store/add.jhtml">添加商铺</a>|
+		</li>
+			</shiro:hasPermission>
 				[@navigation_list position = "top"]
 					[#list navigations as navigation]
 						<li>

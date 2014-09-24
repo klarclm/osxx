@@ -78,6 +78,17 @@ $().ready(function() {
 					&nbsp;
 				</td>
 			</tr>
+				<tr class="authorities">
+				<th>
+					<a href="javascript:;" class="selectAll" title="${message("admin.role.selectAll")}">店铺店长权限</a>
+				</th>
+				<td>
+					<span class="fieldSet">
+						<label>
+							<input type="checkbox" name="authorities" value="admin:storeOwner"[#if role.authorities?seq_contains("admin:storeOwner")] checked="checked"[/#if] />店铺店长权限(!普通用户不要设置该权限)
+					</span>
+				</td>
+			</tr>
 			<tr class="authorities">
 				<th>
 					<a href="javascript:;" class="selectAll" title="${message("admin.role.selectAll")}">${message("admin.role.productGroup")}</a>
