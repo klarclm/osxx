@@ -55,6 +55,8 @@ public class Role extends BaseEntity {
 	/** 管理员 */
 	private Set<Admin> admins = new HashSet<Admin>();
 
+	/** 管理员 */
+	private Set<Member> members = new HashSet<Member>();
 	/**
 	 * 获取名称
 	 * 
@@ -157,5 +159,23 @@ public class Role extends BaseEntity {
 	public void setAdmins(Set<Admin> admins) {
 		this.admins = admins;
 	}
+	/**
+	 * 获取member
+	 * 
+	 * @return member
+	 */
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	public Set<Member> getMembers() {
+		return members;
+	}
 
+	/**
+	 * 设置member
+	 * 
+	 * @param member
+	 *            member
+	 */
+	public void setMembers(Set<Member> members) {
+		this.members = members;
+	}
 }

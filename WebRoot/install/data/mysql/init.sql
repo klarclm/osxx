@@ -4,8 +4,7 @@
 -- License: http://www.klarclm.com/license
 
 CREATE TABLE `xx_store` ( `id` bigint(20) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `ownerid_xxmember` bigint(20) NOT NULL, `logo` varchar(255) DEFAULT NULL, `rank` bigint(20) DEFAULT NULL, `pageshowcontent` longtext, `productcategoryid1_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid2_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid3_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid4_xxproductcategory` bigint(20) DEFAULT NULL, `productcategoryid5_xxproductcategory` bigint(20) DEFAULT NULL,`productcategoryname1_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname2_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname3_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname4_xxproductcategory` varchar(255) DEFAULT NULL, `productcategoryname5_xxproductcategory` varchar(255) DEFAULT NULL, `areaid_xxarea` bigint(20) DEFAULT NULL, `reviewservice` bigint(20) DEFAULT NULL, `reviewquality` bigint(20) DEFAULT NULL, `reviewspeed` bigint(20) DEFAULT NULL, `createdate` datetime NOT NULL, `modifydate` datetime DEFAULT NULL, `modifycolumnname` varchar(255) DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
-
--- ----------------------------
+CREATE TABLE `xx_member_role` ( `memberid` bigint(20) NOT NULL, `roleid` bigint(20) DEFAULT NULL, PRIMARY KEY (`memberid`), KEY `memberrole_index1` (`memberid`) USING BTREE, KEY `memberrole_index2` (`roleid`) USING BTREE, CONSTRAINT `memberrole_f1` FOREIGN KEY (`memberid`) REFERENCES `xx_member` (`id`), CONSTRAINT `memberrole_f2` FOREIGN KEY (`roleid`) REFERENCES `xx_role` (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8; -- ----------------------------
 -- Records of xx_store
 -- ----------------------------
 

@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,6 +30,7 @@ import net.osxx.Principal;
 import net.osxx.ResourceNotFoundException;
 import net.osxx.Setting;
 import net.osxx.Setting.CaptchaType;
+import net.osxx.entity.Admin;
 import net.osxx.entity.Area;
 import net.osxx.entity.ArticleCategory;
 import net.osxx.entity.Attribute;
@@ -64,6 +66,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Controller - 文章
@@ -120,7 +123,9 @@ public class StoreController extends BaseController {
 			storeService.save(store);
 
 			user.setStoreid_xxstore(store.getId());
-			user.setRoleId(Role.ROLE_NORMALSTOREMANAGER);
+			Long[] roles = new Long[1];
+			roles[0] = Role.ROLE_NORMALSTOREMANAGER;
+			memberService.grantRoles(user, roles);
 			memberService.update(user);
 
 			data.put("sn", "111");
@@ -132,6 +137,7 @@ public class StoreController extends BaseController {
 
 		return data;
 	}
+	
 
 
 }

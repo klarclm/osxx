@@ -135,6 +135,9 @@ public class Member extends BaseEntity {
 	/** 角色*/
 	private Long roleId;
 	
+	/** 角色 */
+	private Set<Role> roles = new HashSet<Role>();
+	
 	/** 出生日期 */
 	private Date birth;
 
@@ -1327,4 +1330,25 @@ public class Member extends BaseEntity {
 		}
 	}
 
+	/**
+	 * 获取角色
+	 * 
+	 * @return 角色
+	 */
+	@NotEmpty
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "xx_member_role")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * 设置角色
+	 * 
+	 * @param roles
+	 *            角色
+	 */
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 }

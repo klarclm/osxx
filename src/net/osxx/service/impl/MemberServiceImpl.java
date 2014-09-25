@@ -6,7 +6,9 @@
 package net.osxx.service.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,16 +23,22 @@ import net.osxx.entity.Admin;
 import net.osxx.entity.Deposit;
 import net.osxx.entity.Member;
 import net.osxx.entity.Role;
+import net.osxx.entity.BaseEntity.Save;
 import net.osxx.service.MemberService;
+import net.osxx.service.RoleService;
 import net.osxx.util.SettingUtils;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * Service - 会员
@@ -45,7 +53,9 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 	private MemberDao memberDao;
 	@Resource(name = "depositDaoImpl")
 	private DepositDao depositDao;
-
+	@Resource(name = "roleServiceImpl")
+	private RoleService roleService; 
+	
 	@Resource(name = "memberDaoImpl")
 	public void setBaseDao(MemberDao memberDao) {
 		super.setBaseDao(memberDao);
@@ -186,6 +196,34 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 				return principal.getUsername();
 			}
 		}
+		return null;
+	}
+	
+	@Transactional(readOnly = true)
+	public List<String> findAuthorities(Member user) {
+		Assert.notNull(user);
+		List<String> authorities = new ArrayList<String>();
+		
+		if (user != null) {
+			Role role = roleService.find(user.getRoleId());
+			if(role != null) {
+				authorities.addAll(role.getAuthorities());
+			}
+		}
+
+		return authorities;
+	}
+	
+	@Transactional(readOnly = true)
+	public boolean grantRoles(Member member, Long[] roleIds) {
+		member.setRoles(new HashSet<Role>(roleService.findList(roleIds)));
+		save(member);
+		
+		return true;
+	}
+
+	public List<String> findAuthorities(Long id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
