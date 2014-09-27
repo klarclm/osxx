@@ -4,6 +4,8 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
 	default-lazy-init="true">
 
+ <!--     该系统没有使用shiro的session，调用httpsession的invalidate()的失效方法会导致在堆栈返回到shiro的seesion处理时异常。在shirofiter 的url map网页集合中缩小url范围，采用最小集合
+   添加url map时自己去添加。 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/admin/login.jsp" />
@@ -79,10 +81,10 @@
 
 				/admin/** = authc
 				
+				<!-- 同步在web.xml中添加shirofilter的url map -->
 				/order/** = authc
 				/member/** = authc
 				
-				/** = anon
 				
 			</value>
 		</property>
