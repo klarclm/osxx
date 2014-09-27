@@ -36,10 +36,13 @@ public class Role extends BaseEntity {
 	private static final long serialVersionUID = -6614052029623997372L;
 	
 	/**权限  1,2,3 与role数据库保持一致*/
-	public static final long ROLE_SUPERSTOREMANAGER= 1;
-	public static final long ROLE_NORMALSTOREMANAGER= 2;
-	public static final long ROLE_NORMALUSER= 3;
-
+	public static final String ROLE_SUPERSTOREMANAGER= "超级店长";
+	public static final String ROLE_NORMALSTOREMANAGER= "店长 ";
+	public static final String ROLE_NORMALUSER= "普通用户";
+	public static final long ROLE_ID_SUPERSTOREMANAGER= 1;
+	public static final long ROLE_ID_NORMALSTOREMANAGER= 2;
+	public static final long ROLE_ID_NORMALUSER= 3;
+	
 	/** 名称 */
 	private String name;
 

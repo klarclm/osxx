@@ -7,6 +7,7 @@ package net.osxx.controller.shop.member;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -23,6 +24,8 @@ import net.osxx.service.ProductNotifyService;
 import net.osxx.service.ProductService;
 import net.osxx.service.ReviewService;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,11 +92,11 @@ public class MemberController extends BaseController {
 			if(user != null){
 				data.put("isAuthenticated", true);
 				data.put("member", user);
-				
-				if(user.getRoleId() == Role.ROLE_NORMALUSER){
-					data.put("isStoreOwner",false);
+				Subject userSubject = SecurityUtils.getSubject();
+				if(userSubject.hasRole(Role.ROLE_NORMALSTOREMANAGER) || userSubject.hasRole(Role.ROLE_SUPERSTOREMANAGER)){
+					data.put("isStoreOwner",true);
 				}else{
-					data.put("isStoreOwner", true);
+					data.put("isStoreOwner", false);
 				}
 			}else{
 				data.put("isAuthenticated", false);

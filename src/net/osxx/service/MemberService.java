@@ -137,6 +137,7 @@ public interface MemberService extends BaseService<Member, Long> {
 	String getCurrentUsername();
 	
 	List<String> findAuthorities(Long id);
+	List<String> findRoles(Long id);
 	
 	boolean grantRoles(Member member, Long[] roles);
 

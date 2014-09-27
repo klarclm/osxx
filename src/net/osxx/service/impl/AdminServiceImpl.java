@@ -68,19 +68,7 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements Ad
 				authorities.addAll(role.getAuthorities());
 			}
 		}
-		else {
-			/**
-		     *合并member权限
-			 */
-			net.osxx.entity.Member user = memberService.find(id);
-			if (user != null) {
-				Role role = roleService.find(user.getRoleId());
-				if(role != null) {
-					authorities.addAll(role.getAuthorities());
-				}
-			}
-			
-		}
+
 		return authorities;
 	}
 

@@ -78,23 +78,21 @@ public class AuthenticationRealm extends AuthorizingRealm {
 			Admin admin = adminService.findByUsername(username);
 			Member member = memberService.findByUsername(username);
 			if (admin == null && member == null) {
-					throw new UnknownAccountException();
+				throw new UnknownAccountException();
 			}
-			if(admin != null){
+			if (admin != null) {
 				if (!admin.getIsEnabled()) {
 					throw new DisabledAccountException();
 				}
 				Setting setting = SettingUtils.get();
 				if (admin.getIsLocked()) {
-					if (ArrayUtils.contains(setting.getAccountLockTypes(),
-							AccountLockType.admin)) {
+					if (ArrayUtils.contains(setting.getAccountLockTypes(), AccountLockType.admin)) {
 						int loginFailureLockTime = setting.getAccountLockTime();
 						if (loginFailureLockTime == 0) {
 							throw new LockedAccountException();
 						}
 						Date lockedDate = admin.getLockedDate();
-						Date unlockDate = DateUtils.addMinutes(lockedDate,
-								loginFailureLockTime);
+						Date unlockDate = DateUtils.addMinutes(lockedDate, loginFailureLockTime);
 						if (new Date().after(unlockDate)) {
 							admin.setLoginFailureCount(0);
 							admin.setIsLocked(false);
@@ -124,23 +122,20 @@ public class AuthenticationRealm extends AuthorizingRealm {
 				admin.setLoginDate(new Date());
 				admin.setLoginFailureCount(0);
 				adminService.update(admin);
-				return new SimpleAuthenticationInfo(new Principal(admin.getId(),
-						username), password, getName());
-			}else{
+				return new SimpleAuthenticationInfo(new Principal(admin.getId(), username), password, getName());
+			} else {
 				if (!member.getIsEnabled()) {
 					throw new DisabledAccountException();
 				}
 				Setting setting = SettingUtils.get();
 				if (member.getIsLocked()) {
-					if (ArrayUtils.contains(setting.getAccountLockTypes(),
-							AccountLockType.member)) {
+					if (ArrayUtils.contains(setting.getAccountLockTypes(), AccountLockType.member)) {
 						int loginFailureLockTime = setting.getAccountLockTime();
 						if (loginFailureLockTime == 0) {
 							throw new LockedAccountException();
 						}
 						Date lockedDate = member.getLockedDate();
-						Date unlockDate = DateUtils.addMinutes(lockedDate,
-								loginFailureLockTime);
+						Date unlockDate = DateUtils.addMinutes(lockedDate, loginFailureLockTime);
 						if (new Date().after(unlockDate)) {
 							member.setLoginFailureCount(0);
 							member.setIsLocked(false);
@@ -170,12 +165,10 @@ public class AuthenticationRealm extends AuthorizingRealm {
 				member.setLoginDate(new Date());
 				member.setLoginFailureCount(0);
 				memberService.update(member);
-				
 
-				
-				return new SimpleAuthenticationInfo(new Principal(member.getId(),username), password, getName());
+				return new SimpleAuthenticationInfo(new Principal(member.getId(), username), password, getName());
 			}
-	
+
 		}
 		throw new UnknownAccountException();
 	}
@@ -188,16 +181,24 @@ public class AuthenticationRealm extends AuthorizingRealm {
 	 * @return 授权信息
 	 */
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(
-			PrincipalCollection principals) {
-		Principal principal = (Principal) principals.fromRealm(getName())
-				.iterator().next();
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+		Principal principal = (Principal) principals.fromRealm(getName()).iterator().next();
 		if (principal != null) {
-			List<String> authorities = adminService.findAuthorities(principal
-					.getId());
+			List<String> authorities = adminService.findAuthorities(principal.getId());
+			List<String> authorities1 = memberService.findAuthorities(principal.getId());
+			
+			List<String> roles= memberService.findRoles(principal.getId());
+			
 			if (authorities != null) {
 				SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 				authorizationInfo.addStringPermissions(authorities);
+				return authorizationInfo;
+			}else if(authorities1 != null)
+			{
+				SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+				authorizationInfo.addStringPermissions(authorities1);
+				if(roles != null)
+					authorizationInfo.addRoles(roles);
 				return authorizationInfo;
 			}
 		}

@@ -132,9 +132,6 @@ public class Member extends BaseEntity {
 	/** 性别 */
 	private Gender gender;
 	
-	/** 角色*/
-	private Long roleId;
-	
 	/** 角色 */
 	private Set<Role> roles = new HashSet<Role>();
 	
@@ -310,27 +307,6 @@ public class Member extends BaseEntity {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	/**
-	 * 获取积分
-	 * 
-	 * @return 积分
-	 */
-	@NotNull(groups = Save.class)
-	@Min(0)
-	@Column(nullable = false)
-	public Long getRoleId() {
-		return roleId;
-	}
-
-	/**
-	 * 设置积分
-	 * 
-	 * @param point
-	 *            积分
-	 */
-	public void setRoleId(Long roleId) {
-		this.roleId= roleId;
 	}
 	
 	/**

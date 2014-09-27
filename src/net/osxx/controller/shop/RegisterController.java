@@ -208,7 +208,6 @@ public class RegisterController extends BaseController {
 		member.setSafeKey(null);
 		member.setMemberRank(memberRankService.findDefault());
 		member.setFavoriteProducts(null);
-		member.setRoleId((long) 0);
 		memberService.save(member);
 
 		Cart cart = cartService.getCurrent();

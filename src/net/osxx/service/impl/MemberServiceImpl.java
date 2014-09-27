@@ -54,8 +54,8 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 	@Resource(name = "depositDaoImpl")
 	private DepositDao depositDao;
 	@Resource(name = "roleServiceImpl")
-	private RoleService roleService; 
-	
+	private RoleService roleService;
+
 	@Resource(name = "memberDaoImpl")
 	public void setBaseDao(MemberDao memberDao) {
 		super.setBaseDao(memberDao);
@@ -100,7 +100,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 
 	public void save(Member member, Admin operator) {
 		Assert.notNull(member);
-		
+
 		memberDao.persist(member);
 		if (member.getBalance().compareTo(new BigDecimal(0)) > 0) {
 			Deposit deposit = new Deposit();
@@ -178,7 +178,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 		if (requestAttributes != null) {
 			HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
 			Principal principal = (Principal) request.getSession().getAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME);
-			String username =  (String) request.getSession().getAttribute(Member.USERNAME_COOKIE_NAME);
+			String username = (String) request.getSession().getAttribute(Member.USERNAME_COOKIE_NAME);
 			if (principal != null) {
 				return memberDao.find(principal.getId());
 			}
@@ -198,15 +198,13 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 		}
 		return null;
 	}
-	
+
 	@Transactional(readOnly = true)
-	public List<String> findAuthorities(Member user) {
-		Assert.notNull(user);
+	public List<String> findAuthorities(Long id) {
 		List<String> authorities = new ArrayList<String>();
-		
+		Member user = find(id);
 		if (user != null) {
-			Role role = roleService.find(user.getRoleId());
-			if(role != null) {
+			for (Role role : user.getRoles()) {
 				authorities.addAll(role.getAuthorities());
 			}
 		}
@@ -215,16 +213,23 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
 	}
 	
 	@Transactional(readOnly = true)
+	public List<String> findRoles(Long id) {
+		List<String> roles = new ArrayList<String>();
+		Member user = find(id);
+		if (user != null) {
+			for (Role role : user.getRoles()) {
+				roles.add(role.getName());
+			}
+		}
+
+		return roles;
+	}
+	
+	@Transactional(readOnly = true)
 	public boolean grantRoles(Member member, Long[] roleIds) {
 		member.setRoles(new HashSet<Role>(roleService.findList(roleIds)));
 		save(member);
-		
+
 		return true;
 	}
-
-	public List<String> findAuthorities(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
