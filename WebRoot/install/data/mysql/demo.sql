@@ -5,7 +5,6 @@
 
 -- 初始化DEMO数据 --
 
-insert into xx_member (id, create_date, modify_date, address, amount, attribute_value0, attribute_value1, attribute_value2, attribute_value3, attribute_value4, attribute_value5, attribute_value6, attribute_value7, attribute_value8, attribute_value9, balance, birth, email, gender, is_enabled, is_locked, locked_date, login_date, login_failure_count, login_ip, mobile, name, password, phone, point, register_ip, safe_key_expire, safe_key_value, username, zip_code, area, member_rank) values(1, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', NULL, 0.000000000000, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.000000000000, '${date?string("yyyy-MM-dd HH:mm:ss")}', 'test@klarclm.com', 0, ${bit1}, ${bit0}, NULL, '${date?string("yyyy-MM-dd HH:mm:ss")}', 0, '192.168.1.1', NULL, 'test', '098f6bcd4621d373cade4e832627b4f6', NULL, 0, '192.168.1.1', NULL, NULL, 'test', NULL, 13, 1)
 
 insert into xx_delivery_corp (id, create_date, modify_date, orders, code, name, url) values(1, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', 1, 'yuantong', '圆通速递', 'http://www.yto.net.cn')
 insert into xx_delivery_corp (id, create_date, modify_date, orders, code, name, url) values(2, '${date?string("yyyy-MM-dd HH:mm:ss")}', '${date?string("yyyy-MM-dd HH:mm:ss")}', 2, 'shentong', '申通快递', 'http://www.sto.cn')
