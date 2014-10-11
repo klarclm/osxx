@@ -70,6 +70,8 @@ public class MemberController extends BaseController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Integer pageNumber, ModelMap model) {
 		Member member = memberService.getCurrent();
+		
+		model.addAttribute("member", member);
 		model.addAttribute("waitingPaymentOrderCount", orderService.waitingPaymentCount(member));
 		model.addAttribute("waitingShippingOrderCount", orderService.waitingShippingCount(member));
 		model.addAttribute("messageCount", messageService.count(member, false));
