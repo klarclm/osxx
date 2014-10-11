@@ -29,11 +29,13 @@ $().ready(function() {
 	cache: false,
 	success: function(data) {
 		if (data.isAuthenticated == true) {
-			$headerUsername.text("${message("shop.header.welcome")}, " + data.user.username).show();
+			$headerUsername.text("${message("shop.header.welcome")}, " + data.memberusername).show();
 			$headerLogout.show();
 			if(data.isStoreOwner == true){
 				$storeRegister.hide();
 				$admincommonmainpage.show();
+			}else{
+				$storeRegister.show()
 			}
 		}
 		else{
@@ -80,7 +82,7 @@ $().ready(function() {
 			<ul>
 
 				<li id="headerLogin" class="headerLogin" style="display:none">
-					<a href="${base}/login/index.jhtml">${message("shop.header.login")}</a>|
+					<a href="${base}/admin/login.jsp">${message("shop.header.login")}</a>|
 				</li>
 				<li id="headerRegister" class="headerRegister" style="display:none">
 					<a href="${base}/register.jhtml">${message("shop.header.register")}</a>|

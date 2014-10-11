@@ -158,7 +158,7 @@ public class CommonController {
 			Member user = memberService.getCurrent();
 			if(user != null){
 				data.put("isAuthenticated", true);
-				data.put("member", user);
+				data.put("memberusername", user.getUsername());
 				Subject userSubject = SecurityUtils.getSubject();
 				if(userSubject.hasRole(Role.ROLE_NORMALSTOREMANAGER) || userSubject.hasRole(Role.ROLE_SUPERSTOREMANAGER)){
 					data.put("isStoreOwner",true);
