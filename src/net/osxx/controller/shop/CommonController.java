@@ -20,14 +20,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.osxx.Setting;
 import net.osxx.entity.Area;
+import net.osxx.entity.Member;
+import net.osxx.entity.Role;
 import net.osxx.service.AreaService;
 import net.osxx.service.CaptchaService;
+import net.osxx.service.MemberService;
 import net.osxx.service.RSAService;
+import net.osxx.service.impl.MemberServiceImpl;
 import net.osxx.util.SettingUtils;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +55,8 @@ public class CommonController {
 	private AreaService areaService;
 	@Resource(name = "captchaServiceImpl")
 	private CaptchaService captchaService;
-
+	@Resource(name = "memberServiceImpl")
+	private MemberService memberService;
 	/**
 	 * 网站关闭
 	 */
@@ -140,6 +147,32 @@ public class CommonController {
 	@RequestMapping("/resource_not_found")
 	public String resourceNotFound() {
 		return "/shop/common/resource_not_found";
+	}
+	
+	@RequestMapping(value = "/getMemberState", method = RequestMethod.POST)
+	public @ResponseBody
+	Map<String, Object> getMemberState() {
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		try {
+			Member user = memberService.getCurrent();
+			if(user != null){
+				data.put("isAuthenticated", true);
+				data.put("member", user);
+				Subject userSubject = SecurityUtils.getSubject();
+				if(userSubject.hasRole(Role.ROLE_NORMALSTOREMANAGER) || userSubject.hasRole(Role.ROLE_SUPERSTOREMANAGER)){
+					data.put("isStoreOwner",true);
+				}else{
+					data.put("isStoreOwner", false);
+				}
+			}else{
+				data.put("isAuthenticated", false);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return data;
 	}
 
 }

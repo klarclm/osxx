@@ -22,7 +22,7 @@ $().ready(function() {
 	}
 	
 	$.ajax({
-	url: ${base}/member/getMemberState.jhtml,
+	url: "${base}"+"/common/getMemberState.jhtml",
 	type: "POST",
 	data: {},
 	dataType: "json",

@@ -149,9 +149,8 @@ function message(code) {
 		return result;
 	}
 
-	// 跳转登录
-	$.redirectLogin = function (redirectUrl, message) {
-		var href = osxx.base + "/login.jhtml";
+	// 跳转登录 //ajax的url为shiro保护时，需前端页面自己做跳转.这里要手动与shiro 配置文件中的url做匹配	$.redirectLogin = function (redirectUrl, message) {
+		var href = osxx.base + "/admin/login.jsp";
 		if (redirectUrl != null) {
 			href += "?redirectUrl=" + encodeURIComponent(redirectUrl);
 		}
@@ -216,7 +215,7 @@ function message(code) {
 		var tokenStatus = request.getResponseHeader("tokenStatus");
 		
 		if (loginStatus == "accessDenied") {
-			$.redirectLogin(location.href, "${message("shop.login.accessDenied")}");
+			$.redirectLogin(location.href, "ajax操作的url需要登陆后才能操作");
 		} else if (tokenStatus == "accessDenied") {
 			var token = getCookie("token");
 			if (token != null) {

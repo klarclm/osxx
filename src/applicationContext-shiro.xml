@@ -8,6 +8,7 @@
    添加url map时自己去添加。 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
+		<!-- common.ftl里面ajax complete后会把ajax url受保护登陆跳转到登陆等页面去，这两边的登陆url要同步改 -->
 		<property name="loginUrl" value="/admin/login.jsp" />
 <!-- 		不受权限保护的URL直接跳转到loignUrl进行登录，登录成功后跳转到successUrl,/article/list/3.jhtml->loginUrl->successUrl
 		如果是受权限保护的URL直接跳转到loginUrl进行登录，登录成功后跳转到上一页,例如：/admin/order->loginUrl->/admin/order -->

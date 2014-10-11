@@ -82,29 +82,5 @@ public class MemberController extends BaseController {
 		return "shop/member/index";
 	}
 
-	@RequestMapping(value = "/getMemberState", method = RequestMethod.POST)
-	public @ResponseBody
-	Map<String, Object> getMemberState() {
-		Map<String, Object> data = new HashMap<String, Object>();
 
-		try {
-			Member user = memberService.getCurrent();
-			if(user != null){
-				data.put("isAuthenticated", true);
-				data.put("member", user);
-				Subject userSubject = SecurityUtils.getSubject();
-				if(userSubject.hasRole(Role.ROLE_NORMALSTOREMANAGER) || userSubject.hasRole(Role.ROLE_SUPERSTOREMANAGER)){
-					data.put("isStoreOwner",true);
-				}else{
-					data.put("isStoreOwner", false);
-				}
-			}else{
-				data.put("isAuthenticated", false);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return data;
-	}
 }
