@@ -32,8 +32,8 @@ $().ready(function() {
 			<div class="wrap">
 				<div class="main clearfix">
 					<div class="title">
-						<strong>店主名字</strong>${user.username} 
-						<strong>店铺名字</strong>${userStore.name} 
+						<strong>店主名字</strong>${member.username} 
+						<strong>店铺名字</strong>${memberStore.name} 
 					</div>
 
 				</div>

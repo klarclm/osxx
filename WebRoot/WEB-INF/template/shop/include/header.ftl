@@ -11,15 +11,7 @@ $().ready(function() {
 	var $headerUsername = $("#headerUsername");
 	var $storeRegister = $("#storeRegister")
 	var $admincommonmainpage = $("#admincommonmainpage")
-	
-	var username = getCookie("username");
-	if (username != null) {
-		$headerUsername.text("${message("shop.header.welcome")}, " + username).show();
-		$headerLogout.show();
-	} else {
-		$headerLogin.show();
-		$headerRegister.show();
-	}
+
 	
 	$.ajax({
 	url: "${base}"+"/common/getMemberState.jhtml",
@@ -42,6 +34,7 @@ $().ready(function() {
 			$headerUsername.hide();
 			$headerLogin.show();
 			$headerRegister.show();
+			$headerLogout.hide();
 		}
 	}
 	});
@@ -89,6 +82,7 @@ $().ready(function() {
 				</li>
 				<li id="admincommonmainpage" class="admincommonmainpage" style="display:none">
 					<a href="${base}/admin/common/main.jhtml">管理页面</a>|
+					<a href="${base}/store/show.jhtml">店铺</a>|
 				</li>
 				<li id="headerUsername" class="headerUsername"  style="display:none"></li>
 				<li id="headerLogout" class="headerLogout"  style="display:none">

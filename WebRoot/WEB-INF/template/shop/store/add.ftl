@@ -89,7 +89,7 @@ $().ready(function() {
 							if (data.message.type == "success") {
 								setTimeout(function() {
 									$submit.prop("disabled", false);
-									location.href = "${base}/";
+									location.href = "${base}"+"/store/show";
 								}, 3000);
 							} else {
 								$submit.prop("disabled", false);

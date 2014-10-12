@@ -58,7 +58,9 @@ import net.osxx.util.WebUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.subject.Subject;
 import org.omg.CORBA.DATA_CONVERSION;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -94,17 +96,18 @@ public class StoreController extends BaseController {
 	}
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public String show(ModelMap model) {
-		
+	public String show(ModelMap model, RedirectAttributes redirectAttributes) {
+
 		Member user = memberService.getCurrent();
-		Long userId = user.getId();
-		Store userStore = storeService.find(userId);
+		Long storeId = user.getStoreid_xxstore();
+		Store userStore = storeService.find(storeId);
 		if (userStore != null) {
-			model.addAttribute("user", user);
-			model.addAttribute("userStore", userStore);
+			model.addAttribute("member", user);
+			model.addAttribute("memberStore", userStore);
 			return "/shop/store/show";
 		}else {
-			return "redirect:/store_item_add";
+			addFlashMessage(redirectAttributes, Message.success("店铺不存在，请先创建店铺"));
+			return "redirect:add.jhtml";
 		}
 		
 		
@@ -129,7 +132,7 @@ public class StoreController extends BaseController {
 
 			data.put("sn", "111");
 			data.put("message", SUCCESS_MESSAGE);
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
