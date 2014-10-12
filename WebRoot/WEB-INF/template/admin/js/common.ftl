@@ -519,7 +519,7 @@ function message(code) {
 			$.message("warn", "${message("admin.login.accessDenied")}");
 			setTimeout(function() {
 				location.reload(true);
-			}, 2000);
+			}, 3000);
 		} else if (loginStatus == "unauthorized") {
 			$.message("warn", "${message("admin.unauthorized.message")}");
 		} else if (tokenStatus == "accessDenied") {

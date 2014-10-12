@@ -158,7 +158,7 @@ function message(code) {
 			$.message("warn", message);
 			setTimeout(function() {
 				location.href = href;
-			}, 1000);
+			}, 2000);
 		} else {
 			location.href = href;
 		}

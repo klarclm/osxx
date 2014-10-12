@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50616
 File Encoding         : 65001
 
-Date: 2014-10-09 22:09:39
+Date: 2014-10-12 10:07:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -4503,7 +4503,7 @@ CREATE TABLE `xx_member` (
 -- Records of xx_member
 -- ----------------------------
 INSERT INTO `xx_member` VALUES ('1', '2014-09-24 00:00:00', '2014-09-27 17:51:19', '-1', null, '0.000000000000', null, null, null, null, null, null, null, null, null, null, '0.000000000000', '2014-09-24 00:00:00', 'admin1@klarclm.com', '0', '', '', '2014-09-27 17:51:19', '2014-09-24 00:00:00', '5', '192.168.1.1', null, 'test', '098f6bcd4621d373cade4e832627b4f6', null, '0', '192.168.1.1', null, null, 'admin1', null, '13', '1', '0');
-INSERT INTO `xx_member` VALUES ('18', '2014-09-27 17:51:51', '2014-09-27 22:06:27', null, null, '0.000000000000', null, null, null, null, null, null, null, null, null, null, '0.000000000000', null, '123@123.com', '0', '', '', null, '2014-09-27 22:06:27', '0', null, null, null, 'e10adc3949ba59abbe56e057f20f883e', null, '0', '127.0.0.1', null, null, 'klarclm1', null, null, '1', '0');
+INSERT INTO `xx_member` VALUES ('18', '2014-09-27 17:51:51', '2014-10-12 09:25:12', '7', null, '0.000000000000', null, null, null, null, null, null, null, null, null, null, '0.000000000000', null, '123@123.com', '0', '', '', null, '2014-10-12 09:25:12', '0', null, null, null, 'e10adc3949ba59abbe56e057f20f883e', null, '0', '127.0.0.1', null, null, 'klarclm1', null, null, '1', '0');
 
 -- ----------------------------
 -- Table structure for `xx_member_attribute`
@@ -4612,6 +4612,7 @@ CREATE TABLE `xx_member_role` (
 -- Records of xx_member_role
 -- ----------------------------
 INSERT INTO `xx_member_role` VALUES ('1', '1');
+INSERT INTO `xx_member_role` VALUES ('18', '1');
 
 -- ----------------------------
 -- Table structure for `xx_message`
@@ -12075,19 +12076,24 @@ CREATE TABLE `xx_store` (
   `reviewservice` bigint(20) DEFAULT NULL,
   `reviewquality` bigint(20) DEFAULT NULL,
   `reviewspeed` bigint(20) DEFAULT NULL,
-  `createdate` datetime NOT NULL,
-  `modifydate` datetime DEFAULT NULL,
   `modifycolumnname` varchar(255) DEFAULT NULL,
   `create_date` datetime NOT NULL,
   `modify_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK26202AE2F805A7A7` (`rank`),
   CONSTRAINT `FK26202AE2F805A7A7` FOREIGN KEY (`rank`) REFERENCES `xx_store_rank` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of xx_store
 -- ----------------------------
+INSERT INTO `xx_store` VALUES ('1', '1号店铺', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:35:54', '2014-10-12 07:35:54');
+INSERT INTO `xx_store` VALUES ('2', '店铺1号', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:36:24', '2014-10-12 07:36:24');
+INSERT INTO `xx_store` VALUES ('3', '店铺1号', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:37:51', '2014-10-12 07:37:51');
+INSERT INTO `xx_store` VALUES ('4', '店铺1号', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:38:16', '2014-10-12 07:38:16');
+INSERT INTO `xx_store` VALUES ('5', '店铺1号', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:39:34', '2014-10-12 07:39:34');
+INSERT INTO `xx_store` VALUES ('6', '店铺1号', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:48:52', '2014-10-12 07:48:52');
+INSERT INTO `xx_store` VALUES ('7', '1号店铺', '18', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2014-10-12 07:49:23', '2014-10-12 07:49:23');
 
 -- ----------------------------
 -- Table structure for `xx_store_rank`
