@@ -160,6 +160,8 @@ public class CommonController {
 				data.put("isAuthenticated", true);
 				data.put("memberusername", user.getUsername());
 				Subject userSubject = SecurityUtils.getSubject();
+				boolean bHasRole = userSubject.hasRole(Role.ROLE_NORMALSTOREMANAGER);
+				boolean bHasRole1 = userSubject.hasRole(Role.ROLE_SUPERSTOREMANAGER);
 				if(userSubject.hasRole(Role.ROLE_NORMALSTOREMANAGER) || userSubject.hasRole(Role.ROLE_SUPERSTOREMANAGER)){
 					data.put("isStoreOwner",true);
 				}else{

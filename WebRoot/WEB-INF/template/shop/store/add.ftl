@@ -84,9 +84,9 @@ $().ready(function() {
 						},
 						dataType: "json",
 						cache: false,
-						success: function(message) {
-							$.message(message);
-							if (message.type == "success") {
+						success: function(data) {
+							$.message(data.message);
+							if (data.message.type == "success") {
 								setTimeout(function() {
 									$submit.prop("disabled", false);
 									location.href = "${base}/";

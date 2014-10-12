@@ -184,20 +184,18 @@ public class AuthenticationRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		Principal principal = (Principal) principals.fromRealm(getName()).iterator().next();
 		if (principal != null) {
-			List<String> authorities = adminService.findAuthorities(principal.getId());
-			List<String> authorities1 = memberService.findAuthorities(principal.getId());
-			
-			List<String> roles= memberService.findRoles(principal.getId());
-			
-			if (authorities != null) {
+
+			if (adminService.usernameExists(principal.getUsername()) == true) {
+				List<String> authorities = adminService.findAuthorities(principal.getId());
 				SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 				authorizationInfo.addStringPermissions(authorities);
 				return authorizationInfo;
-			}else if(authorities1 != null)
-			{
+			} else {
+				List<String> authorities1 = memberService.findAuthorities(principal.getId());
+				List<String> roles = memberService.findRoles(principal.getId());
 				SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 				authorizationInfo.addStringPermissions(authorities1);
-				if(roles != null)
+				if (roles != null)
 					authorizationInfo.addRoles(roles);
 				return authorizationInfo;
 			}

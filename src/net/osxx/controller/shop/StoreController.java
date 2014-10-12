@@ -123,7 +123,7 @@ public class StoreController extends BaseController {
 
 			user.setStoreid_xxstore(store.getId());
 			Long[] roles = new Long[1];
-			roles[0] = Role.ROLE_ID_SUPERSTOREMANAGER;
+			roles[0] = Role.ROLE_ID_NORMALSTOREMANAGER;
 			memberService.grantRoles(user, roles);
 			memberService.update(user);
 

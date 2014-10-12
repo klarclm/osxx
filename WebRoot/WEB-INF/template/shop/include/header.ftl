@@ -22,6 +22,30 @@ $().ready(function() {
 	}
 	
 	$.ajax({
+	url: "${base}"+"/member/getMemberState.jhtml",
+	type: "POST",
+	data: {},
+	dataType: "json",
+	cache: false,
+	success: function(data) {
+		if (data.isAuthenticated == true) {
+			$headerUsername.text("${message("shop.header.welcome")}, " + data.memberusername).show();
+			$headerLogout.show();
+			if(data.isStoreOwner == true){
+				$storeRegister.hide();
+				$admincommonmainpage.show();
+			}else{
+				$storeRegister.show()
+			}
+		}
+		else{
+			$headerUsername.hide();
+			$headerLogin.show();
+			$headerRegister.show();
+		}
+	}
+	});
+	$.ajax({
 	url: "${base}"+"/common/getMemberState.jhtml",
 	type: "POST",
 	data: {},
@@ -45,7 +69,6 @@ $().ready(function() {
 		}
 	}
 	});
-
 	$keyword.focus(function() {
 		if ($keyword.val() == defaultKeyword) {
 			$keyword.val("");
